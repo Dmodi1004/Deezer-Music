@@ -1,5 +1,13 @@
 package com.example.deezermusic.Repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
+import com.example.deezermusic.Retrofit.DeezerApi
+import com.example.deezermusic.paging.DeezerPagingSource
+import javax.inject.Inject
+
+/*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.deezermusic.Models.MyData
@@ -28,4 +36,13 @@ class DataRepository @Inject constructor(private val deezerApi: DeezerApi) {
             }
         })
     }
+}*/
+
+class DataRepository @Inject constructor(private val deezerApi: DeezerApi) {
+
+    fun getData(query: String) = Pager(
+        config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+        pagingSourceFactory = { DeezerPagingSource(deezerApi, query) }
+    ).liveData
+
 }

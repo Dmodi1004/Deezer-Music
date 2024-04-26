@@ -57,6 +57,7 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     // Gson
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
@@ -68,17 +69,20 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    // Dagger
-//    implementation ("com.google.dagger:dagger-android:2.28.3")
-//    implementation ("com.google.dagger:dagger-android-support:2.28.3")
-//    annotationProcessor ("com.google.dagger:dagger-android-processor:2.28.3")
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
     // Dagger Hilt
     implementation ("com.google.dagger:hilt-android:2.51.1")
     kapt ("com.google.dagger:hilt-compiler:2.51.1")
-
-    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    // OkHttp3
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+    // Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation ("androidx.paging:paging-common-ktx:3.2.1")
+    // Lottie Animation
+    implementation ("com.airbnb.android:lottie:6.4.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

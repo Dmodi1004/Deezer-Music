@@ -8,9 +8,9 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="#F4F4F4"
         android:elevation="8dp"
         app:cardCornerRadius="11dp"
-        android:backgroundTint="#F4F4F4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,6 @@
                 android:id="@+id/musicImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_user_avatar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,34 +34,50 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Dhruv Modi"
+                android:layout_marginEnd="4dp"
+                android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                 app:layout_constraintStart_toEndOf="@+id/musicImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/btnPlay"
-                android:layout_width="60dp"
+            <LinearLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_play"
+                android:gravity="center"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/musicTitle"
-                app:layout_constraintEnd_toStartOf="@+id/btnPause"
-                app:layout_constraintStart_toEndOf="@+id/musicTitle"
-                app:layout_constraintTop_toTopOf="@+id/musicTitle" />
-
-            <ImageButton
-                android:id="@+id/btnPause"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_pause"
-                app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnPlay"
-                app:layout_constraintTop_toTopOf="@+id/btnPlay" />
+                app:layout_constraintTop_toTopOf="@+id/musicTitle">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/btnPlay"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="#00FFFFFF"
+                    android:src="@drawable/ic_play"
+                    android:contentDescription="Pause Button" />
+
+                <ImageButton
+                    android:id="@+id/btnPause"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="#00FFFFFF"
+                    android:src="@drawable/ic_pause"
+                    android:contentDescription="Pause Button" />
+
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

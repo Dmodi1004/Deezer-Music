@@ -3,9 +3,11 @@ package com.example.deezermusic
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -79,7 +81,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private lateinit var loading: LottieAnimationView
-    private lateinit var mediaPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -87,28 +88,40 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         loading = findViewById(R.id.loading)
 
-        mediaPlayer = MediaPlayer()
-
-        adapter = MyAdapter(mediaPlayer)
+        adapter = MyAdapter()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
 
-        viewModel.getData("eminem").observe(this) {
+        loading.visibility = View.VISIBLE
 
-            if (it != null) {
-                adapter.submitData(lifecycle, it)
+        viewModel.getData("eminem").observe(this) { pagingData ->
+            if (pagingData != null) {
+                adapter.submitData(lifecycle, pagingData)
             }
-            loading.visibility = View.GONE
         }
 
-    }
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.Loading) {
+                loading.visibility = View.VISIBLE
+            } else {
+                loading.visibility = View.GONE
 
-    override fun onDestroy() {
-        mediaPlayer.release()
-        super.onDestroy()
+                // Handle errors here
+                val errorState = loadState.source.append as? LoadState.Error
+                    ?: loadState.source.prepend as? LoadState.Error
+                    ?: loadState.append as? LoadState.Error
+                    ?: loadState.prepend as? LoadState.Error
+
+                errorState?.let {
+                    Toast.makeText(this, "${it.error}", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        }
+
     }
 
 }

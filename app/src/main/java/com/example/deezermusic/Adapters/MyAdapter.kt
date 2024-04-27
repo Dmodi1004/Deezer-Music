@@ -78,9 +78,9 @@ class MyAdapter(private val context: Context, private var dataList: List<Data> ,
     }
 }*/
 
-class MyAdapter(private val mediaPlayer: MediaPlayer) : PagingDataAdapter<Data, MyAdapter.ViewHolder>(COMPARATOR) {
+class MyAdapter() : PagingDataAdapter<Data, MyAdapter.ViewHolder>(COMPARATOR) {
 
-    class ViewHolder(private val binding: ItemListBinding, private val mediaPlayer: MediaPlayer) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: Data?, context: Context) {
             binding.apply {
@@ -91,6 +91,8 @@ class MyAdapter(private val mediaPlayer: MediaPlayer) : PagingDataAdapter<Data, 
                         .load(data.album.cover)
                         .placeholder(R.drawable.ic_user_avatar)
                         .into(binding.musicImage)
+
+                    val mediaPlayer = MediaPlayer()
 
                     btnPlay.setOnClickListener {
 
@@ -123,7 +125,7 @@ class MyAdapter(private val mediaPlayer: MediaPlayer) : PagingDataAdapter<Data, 
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), mediaPlayer = mediaPlayer
+            )
         )
     }
 
